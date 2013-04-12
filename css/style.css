@@ -14,6 +14,8 @@ body {
     position: relative;
     background-color: #F03C19;
     font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0 3px 3px 3px;
 }
 
 .clear {
@@ -45,6 +47,21 @@ input[type="checkbox"] {
 }
 
 /*****************************************************************/
+
+#infoBox {
+    position: absolute;
+    padding: 10px 10px 0 0;
+    left: 936px;
+    top: 0px;
+    width: 290px;
+    background-image: url(../images/icons/arrowupwhite32.png);
+    background-position: 267px 0px;
+    background-repeat: no-repeat;
+}
+
+#infoBox p {
+
+}
 
 #logo {
     padding: 20px;
@@ -317,6 +334,9 @@ video {
     border-bottom: 2px solid white;
 }
 
+.isTile .tileContent p {
+    margin: 0 0 5px 0;   
+}
 
 #invite {
     background-color: #FFC629;

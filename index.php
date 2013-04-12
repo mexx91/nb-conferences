@@ -14,6 +14,10 @@
     </head>
     <body>
         <div id="content">
+            
+            <div id="infoBox">
+                <p class="infoBoxText">info box (coming soon) ...</p>
+            </div>
 
             <div id="logo"><a href="./" id="netbiscuitsLogo"></a> <img src="images/icons/camera32white.png" /></div>
             <div class="clear"></div>
@@ -117,6 +121,7 @@
                     <div class="tileHeader"><img src="images/icons/userplus32.png" /><p>invite</p></div>
 
                     <div class="tileContent">
+                        <p>share this link to invite conference members</p>
                     </div> 
                 </div>
 
@@ -124,7 +129,7 @@
             </div>
             <div class="clear"></div>
 
-            <video id="localVideo" autoplay ></video>
+            <video id="localVideo" poster="images/unlockPoster.png" autoplay ></video>
 
             <div id="remotes">
 
@@ -184,7 +189,7 @@
 
                                     //$('form').remove();
                                     $('#currentRoom').html('<span>' + name + '</span>&nbsp;<img src="images/icons/circlerightwhite32.png"/>');
-                                    $('#invite').find('.tileContent').html('<a href="' + location.href + '" target="">' + location.href + '</a>');
+                                    $('#invite').find('.tileContent').append('<a href="' + location.href + '" target="">' + location.href + '</a>');
                                     $('#invite').show();
                                     $('body').addClass('active');
 
