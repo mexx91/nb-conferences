@@ -312,6 +312,19 @@ video {
     text-transform: lowercase;
     position: relative;
     height: 40px;
+    background-image: url('../images/icons/arrowdownwhite32.png');
+    background-repeat: no-repeat;
+    background-position: right 0;
+}
+
+.tileHeader.up {
+    background-image: none;
+}
+
+.tileHeader.up + .tileContent{
+    background-image: url('../images/icons/arrowupwhite32.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
 }
 
 
@@ -333,13 +346,22 @@ video {
     width: 280px;
     color: #FFF;
     font-family: 'Roboto', sans-serif;
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 30px 10px;
     position: absolute;
     border-bottom: 2px solid white;
 }
 
 .isTile .tileContent p {
     margin: 0 0 5px 0;   
+}
+
+.isTile .tileFooter {
+    display: block;
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 #invite {

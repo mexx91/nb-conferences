@@ -59,16 +59,24 @@ function scrollChatWindow() {
 
 
 // tiles
+$(".tileHeader").click(function() {
+    var backgroundColor = $(this).parent().css('backgroundColor');
+    var display = $(this).parent().find('.tileContent').css('display');
 
-$('.isTile').hover(function() { // hover
-    var backgroundColor = $(this).css('backgroundColor');
-    $(this).find('.tileContent').css({'backgroundColor': backgroundColor, 'z-index': 10});
-    $(this).find('.tileContent').slideDown();
-}, function() { // end of hover
+    $(this).addClass('up');
 
-    $(this).find('.tileContent').slideUp();
-    $(this).find('.tileContent').css({'z-index': 0});
+    $(this).parent().find('.tileContent').css({'backgroundColor': backgroundColor, 'z-index': 10});
+    $(this).parent().find('.tileContent').slideDown();
+    console.log('show');
 });
+
+$('.tileFooter').click(function() {
+    $(this).parent().slideUp();
+    $(this).parent().parent().find('.tileHeader').removeClass('up');
+    console.log('hide');
+});
+
+
 
 function changeVideoSize() {
     if (videoSize === 'normal') {

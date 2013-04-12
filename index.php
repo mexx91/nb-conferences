@@ -36,6 +36,8 @@
                             <input placeholder="Conference name" id="sessionInput" x-webkit-speech/>
                             <img onclick="$('#createRoom').submit()" src="images/icons/check32white.png" />
                         </form>
+
+                        <div class="tileFooter"></div>
                     </div>
                 </div>
 
@@ -50,8 +52,9 @@
                         <input id="chatColorInput" type="hidden" />
                         <input type="text" id="chatInput" x-webkit-speech placeholder="Your Message" />
                         <img onclick="webrtc.sendChatMessage()" src="images/icons/check32white.png" />
-                    </div> 
 
+                        <div class="tileFooter"></div>
+                    </div> 
                 </div>
 
 
@@ -64,6 +67,8 @@
                             <!-- Will be filled and emtied atomaticaly -->
                             <span class="empty"> None. You may create on by yourself</span>
                         </div>
+
+                        <div class="tileFooter"></div>
                     </div>
                 </div>
 
@@ -84,6 +89,7 @@
                         <br>
                         <button id="leaveConf" class="hidden" onclick="window.location.href = './'">Leave the conference</button>
 
+                        <div class="tileFooter"></div>
                     </div>
                 </div>
 
@@ -99,8 +105,8 @@
                             <li>empty rooms are removed automatically</li>
                             <li>you can see and join every conference via the 'active conferences' list</li>
                         </ul>
+                        <div class="tileFooter"></div>
                     </div> 
-
                 </div>
 
 
@@ -113,8 +119,9 @@
                             <li>new style</li>
                             <li>project uploaded</li>
                         </ul>
-                    </div> 
 
+                        <div class="tileFooter"></div>
+                    </div> 
                 </div>
 
                 <div id="invite" class="isTile" style="display: none">
@@ -122,6 +129,8 @@
 
                     <div class="tileContent">
                         <p>share this link to invite conference members</p>
+
+                        <div class="tileFooter"></div>
                     </div> 
                 </div>
 
