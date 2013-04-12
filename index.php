@@ -15,7 +15,7 @@
     <body>
         <div id="content">
 
-            <div id="infoBox">
+            <div id="infoBox" style="display:none;">
                 <p class="infoBoxText">info box (coming soon) ...</p>
             </div>
 
@@ -39,22 +39,6 @@
 
                         <div class="tileFooter"></div>
                     </div>
-                </div>
-
-
-                <div id="chat" class="isTile">
-                    <div class="tileHeader"><img src="images/icons/comment32white.png" /><p>Chat</p></div>
-
-                    <div class="tileContent">
-
-                        <div id="chatTextarea" >CHAT:</div>
-                        <input type="text" id="chatNameInput" placeholder="Name" />
-                        <input id="chatColorInput" type="hidden" />
-                        <input type="text" id="chatInput" x-webkit-speech placeholder="Your Message" />
-                        <img onclick="webrtc.sendChatMessage()" src="images/icons/check32white.png" />
-
-                        <div class="tileFooter"></div>
-                    </div> 
                 </div>
 
 
@@ -86,13 +70,10 @@
 
                         <input type="checkbox" onchange="mirrorLocalVideo()"/><label>Mirror local video</label><br>
                         <input type="checkbox" onchange="mirrorRemoteVideos()"/><label>Mirror remote videos</label>
-                        <br>
-                        <button id="leaveConf" class="hidden" onclick="window.location.href = './'">Leave the conference</button>
 
                         <div class="tileFooter"></div>
                     </div>
                 </div>
-
 
                 <div id="faq" class="isTile">
                     <div class="tileHeader"><img src="images/icons/lightbulbwhite32.png" /><p>faq</p></div>
@@ -110,12 +91,32 @@
                 </div>
 
 
+                <div id="chat" class="isTile">
+                    <div class="tileHeader"><img src="images/icons/comment32white.png" /><p>Chat</p></div>
+
+                    <div class="tileContent">
+
+                        <div id="chatTextarea" >CHAT:</div>
+                        <input type="text" id="chatNameInput" placeholder="Name" />
+                        <input id="chatColorInput" type="hidden" />
+                        <input type="text" id="chatInput" x-webkit-speech placeholder="Your Message" />
+                        <img onclick="webrtc.sendChatMessage()" src="images/icons/check32white.png" />
+
+                        <div class="tileFooter"></div>
+                    </div> 
+                </div>
+
+
                 <div id="latestchanges" class="isTile">
                     <div class="tileHeader"><img src="images/icons/turnrightwhite32.png" /><p>latest changes</p></div>
 
                     <div class="tileContent">
 
                         <ul>
+                            <li>order of tiles changed</li>
+                            <li>local video muted by default</li>
+                            <li>tile dropdown event changed to click</li>
+                            <li>invite link added</li>
                             <li>new style</li>
                             <li>project uploaded</li>
                         </ul>
@@ -134,11 +135,11 @@
                     </div> 
                 </div>
 
-
             </div>
-            <div class="clear"></div>
+            <div id="exitButton"><a href="./">exit conference</a></div>
 
-            <video id="localVideo" poster="images/unlockPoster.png" autoplay ></video>
+            <div class="clear"></div>
+            <video id="localVideo" poster="images/unlockPoster.png" muted="muted" autoplay ></video>
 
             <div id="remotes">
 
@@ -158,8 +159,7 @@
             <!--socket is included via js in simplewebrtc.js -->
         </div>
 
-        <script>
-                                document.writeln('<script src="http://' + location.host + ':8080/socket.io/socket.io.js" type="text/javascript"></sc' + 'ript>');
+        <script> document.writeln('<script src="http://' + location.host + ':8080/socket.io/socket.io.js" type="text/javascript"></sc' + 'ript>');
         </script>
 
         <script src = "js/crypt.js" ></script>
@@ -177,6 +177,7 @@
                 $('#chat').hide();
             } else {
                 $('#chat').show();
+                $('#exitButton').show();
             }
 
 
@@ -209,6 +210,7 @@
                 $('body').addClass('active');
 
                 $('#chat').show();
+                $('#exitButton').show();
             }
 
 

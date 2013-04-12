@@ -58,22 +58,18 @@ function scrollChatWindow() {
 
 
 
-// tiles
+// expand tiles
 $(".tileHeader").click(function() {
     var backgroundColor = $(this).parent().css('backgroundColor');
     var display = $(this).parent().find('.tileContent').css('display');
-
     $(this).addClass('up');
-
     $(this).parent().find('.tileContent').css({'backgroundColor': backgroundColor, 'z-index': 10});
     $(this).parent().find('.tileContent').slideDown();
-    console.log('show');
 });
 
 $('.tileFooter').click(function() {
     $(this).parent().slideUp();
     $(this).parent().parent().find('.tileHeader').removeClass('up');
-    console.log('hide');
 });
 
 

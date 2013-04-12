@@ -311,7 +311,6 @@ function WebRTC(opts) {
         if (!self.pcs[room.id]) {
             self.startVideoCall(room.id);
         }
-        $('#leaveConf').toggleClass('hidden');
 
         var textTemp = $('#chatTextarea').html();
         $('#chatTextarea').html(textTemp + '<br>' + '<span class="systemMsg">USER JOINED</span>');

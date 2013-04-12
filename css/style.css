@@ -377,3 +377,32 @@ video {
 #invite .tileContent a {
     color: #FF2151;
 }
+
+#invite .tileHeader {
+    width: 590px;
+}
+
+#exitButton {
+    margin: 5px;
+    float: left;
+    display: none;
+}
+
+#exitButton a{
+    display: block;
+    width: 255px;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 25px;
+    background-image: url("../images/icons/stopwhite32.png");
+    background-position: 5px 8px;
+    background-repeat: no-repeat;
+    text-decoration: none;
+    padding: 5px 5px 5px 40px;
+}
+
+#exitButton a:hover{
+    background-color: #FFF;
+    color: red;
+     background-image: url("../images/icons/stopred32.png");
+}
