@@ -1,0 +1,333 @@
+/* 
+    Document   : style.css
+    Created on : 27.03.2013, 09:59:13
+    Author     : mgross
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+body {
+    position: relative;
+    background-color: #F03C19;
+    font-family: 'Roboto', sans-serif;
+}
+
+.clear {
+    clear: both;
+}
+
+.hidden {
+    display: none;
+}
+
+input, option {
+    border: none;
+    padding: 5px;
+    border: 1px solid #FFC629;
+}
+
+h3 {
+    margin: 7px 0 5px 5px;
+}
+
+li{
+    margin-bottom: 5px;   
+    list-style-type: square;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+/*****************************************************************/
+
+#logo {
+    padding: 20px;
+}
+
+#logo a{
+    float: left;
+}
+
+#logo img {
+    float: left;
+}
+
+#currentRoom {
+    text-align: center;
+    color: #FFF;
+    font-size: 30px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+form#createRoom {
+    margin: 0;
+}
+
+#title span{
+    font-size: 18px; 
+    text-transform: capitalize;
+}
+
+#subTitle a{
+    color: #FFF;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+#subTitle a:hover{
+    text-decoration: underline;
+}
+
+#createRoom button{
+    color: #FFF;
+    background-color: #F03C19;
+}
+
+#createRoom button:hover{
+    background-color: dimgray;
+}
+#createRoom input {
+    width: 240px;
+}
+
+
+#netbiscuitsLogo {
+    background-image: url('../images/netbiscuits_logo_4_180x26.gif');
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    display: block;
+    height: 40px;
+    width: 180px;
+}
+
+#titleWrap {
+    background-color: #CC4105;
+    float: left;
+    color: #FFF;
+}
+
+.settings {
+    float: left;
+    background-color: #46CC05;
+}
+
+.settings .slider {
+    margin-top: 5px;
+}
+
+#leaveConf {
+    margin: 10px 0 0 0;
+    padding: 3px 5px;
+    border-color: #F03C19;
+    border-radius: 5px;
+}
+
+.conferenceListWrap {
+    float: left;
+    background-color: #057BCC;
+}
+
+.conferenceList {
+    padding: 3px 0;
+}
+
+.conferenceList a {
+    padding: 5px;
+    background-color: #FFF;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: rgb(38, 135, 166);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.conferenceList a:hover {
+    background-color: #4D5770;
+    color: #FFF;
+}
+
+.conferenceList a.active {
+    background-image: url("../images/icons/camera32.png");
+    background-repeat: no-repeat;
+    background-position: 5px 0; 
+    padding-left: 40px;
+}
+
+.conferenceList a.active:hover {
+    background-color: #FFF;
+    color: rgb(38, 135, 166);
+}
+.conferenceList a span{
+    float: right;
+    font-weight: normal;
+}
+
+.conferenceList span.empty {
+    padding: 5px 5px 20px 5px;
+}
+
+.totalClients {
+    display:block;
+    border-top: 1px solid #FFF;
+    font-size: 14px;
+    margin: 7px 0 0 0;
+    padding:3px 5px;
+}
+
+video {
+    margin: 5px;
+    border: 5px solid #BF0807;
+    width: 290px;
+}
+
+#localVideo {
+    float: left;
+}
+
+#remotes {
+    float: left;
+}
+
+#remotes video{
+    margin: 3px;
+}
+
+.mirrored {
+    -webkit-transform: scale(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+#chat {
+    background-color: #7F1110;
+}
+
+#chatTextarea {
+    max-height: 100px;
+    width: 280px;
+    min-height: 100px;
+    display: block;
+    border: 2px solid rgb(238, 238, 238);
+    -webkit-appearance: textfield;
+    overflow-y: scroll;
+    font-size: 15px;
+}
+
+#chatTextarea .time {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 12px;
+}
+
+#chatTextarea .systemMsg {
+    color: orangered;
+    border-top: 1px dotted orangered;
+    border-bottom: 1px dotted orangered;
+    padding: 0 10px;
+}
+
+#chatNameInput {
+    width: 50px;
+}
+
+#chatInput {
+    width: 190px;
+}
+
+#chat img{
+    width: 25px;
+    height: 25px;
+    float: right;
+}
+
+#chat button {
+    width: 50px;
+    border: 2px solid rgb(238, 238, 238);
+    -webkit-appearance: textfield;
+}
+
+#debug {
+    border: 2px dashed #19469D;
+    padding: 5px;
+    margin: 25px;
+
+    display: none;
+}
+
+
+#faq {
+    background-color: #4D5558;
+}
+
+
+#latestchanges {
+    background-color: #2687A6;
+}
+
+
+.isTile {
+    margin: 5px;
+    float: left;
+}
+
+.isTile .tileHeader {
+    width: 280px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    color: #FFF;
+    font-size: 16px;
+    text-transform: lowercase;
+    position: relative;
+    height: 40px;
+}
+
+
+.isTile .tileHeader img{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+.isTile .tileHeader p{ 
+    margin: 0;
+    padding: 0 0 0 30px;
+}
+
+.isTile .tileContent {
+    display: none; /* will be set visible in functions.js */
+    width: 280px;
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    padding: 0 10px 10px 10px;
+    position: absolute;
+    border-bottom: 2px solid white;
+}
+
+
+#invite {
+    background-color: #FFC629;
+    color: #FFF;
+    width: 610px;
+}
+
+#invite .tileContent {
+    width: 590px;
+}
+
+#invite .tileContent a {
+    color: #FF2151;
+}
