@@ -21,7 +21,7 @@
  */
 
 // GLOBALS
-var socketServerURL = 'http://192.168.100.61:8080';
+var socketServerURL = 'http://' + location.host + ':8080';
 var conferencesExisting = false;
 //
 
@@ -651,8 +651,3 @@ WebRTC.prototype.sendChatMessage = function(msg) {
 
 // expose WebRTC
 window.WebRTC = WebRTC;
-
-
-
-
-

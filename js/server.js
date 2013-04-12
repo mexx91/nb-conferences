@@ -141,4 +141,4 @@ io.sockets.on('connection', function(client) {
 
 if (config.uid)
     process.setuid(config.uid);
-console.log(yetify.logo() + ' -- signal server: http://192.168.100.61:' + config.server.port);
+console.log(yetify.logo() + ' -- signal server: http://yourDomain:' + config.server.port);

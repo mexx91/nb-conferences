@@ -50,17 +50,21 @@ input[type="checkbox"] {
 
 #infoBox {
     position: absolute;
-    padding: 10px 10px 0 0;
+    padding: 10px;
     left: 936px;
-    top: 0px;
-    width: 290px;
-    background-image: url(../images/icons/arrowupwhite32.png);
-    background-position: 267px 0px;
+    top: 10px;
+    width: 280px;
+    background-image: url(../images/icons/stopred32.png);
+    background-position: 267px 10px;
     background-repeat: no-repeat;
+    background-size: 25px;
+    background-color: #FFF;
+    min-height: 40px;
 }
 
 #infoBox p {
-
+    font-size: 14px;
+    margin: 0;
 }
 
 #logo {

@@ -14,7 +14,7 @@
     </head>
     <body>
         <div id="content">
-            
+
             <div id="infoBox">
                 <p class="infoBoxText">info box (coming soon) ...</p>
             </div>
@@ -143,82 +143,88 @@
         </div>
 
         <!-- jQuery-->
-        <script type="text/javascript" src="js/jQuery.js"></script>
-        <script type="text/javascript" src="js/jQueryUi.js"></script>
-        <script type="text/javascript" src="//192.168.100.61:8080/socket.io/socket.io.js"></script>
+        <div id="scripts">
+            <script type="text/javascript" src="js/jQuery.js"></script>
+            <script type="text/javascript" src="js/jQueryUi.js"></script>
+            <!--socket is included via js in simplewebrtc.js -->
+        </div>
 
-        <script src="js/crypt.js"></script>
+        <script>
+                                document.writeln('<script src="http://' + location.host + ':8080/socket.io/socket.io.js" type="text/javascript"></sc' + 'ript>');
+        </script>
 
+        <script src = "js/crypt.js" ></script>
         <!--RTC connection-->
         <script src="js/simplewebrtc.js"></script>
         <!-- other JS-->
         <script src="js/functions.js"></script>
 
         <script>
-                                // grab the room from the URL
-                                var room = location.search && location.search.split('?')[1];
 
-                                if (room === '') {
-                                    $('#chat').hide();
-                                } else {
-                                    $('#chat').show();
-                                }
+            // grab the room from the URL
+            var room = location.search && location.search.split('?')[1];
 
-
-                                // create a webrtc connection
-                                var webrtc = new WebRTC({
-                                    // the id/element dom element that will hold "our" video
-                                    localVideoEl: 'localVideo',
-                                    // the id/element dom element that will hold remote videos
-                                    remoteVideosEl: 'remotes',
-                                    // immediately ask for camera access
-                                    autoRequestMedia: true,
-                                    log: true
-                                });
-
-                                // when it's ready, join if we got a room from the URL
-                                webrtc.on('readyToCall', function() {
-                                    // you can name it anything
-                                    if (room)
-                                        webrtc.joinRoom(room);
-                                });
-
-                                // Since we use this twice we put it here
-
-                                function setRoom(name) {
-
-                                    //$('form').remove();
-                                    $('#currentRoom').html('<span>' + name + '</span>&nbsp;<img src="images/icons/circlerightwhite32.png"/>');
-                                    $('#invite').find('.tileContent').append('<a href="' + location.href + '" target="">' + location.href + '</a>');
-                                    $('#invite').show();
-                                    $('body').addClass('active');
-
-                                    $('#chat').show();
-                                }
+            if (room === '') {
+                $('#chat').hide();
+            } else {
+                $('#chat').show();
+            }
 
 
-                                if (room) {
-                                    setRoom(room);
-                                } else {
-                                    $('form').submit(function() {
-                                        var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
+            // create a webrtc connection
+            var webrtc = new WebRTC({
+                // the id/element dom element that will hold "our" video
+                localVideoEl: 'localVideo',
+                // the id/element dom element that will hold remote videos
+                remoteVideosEl: 'remotes',
+                // immediately ask for camera access
+                autoRequestMedia: true,
+                log: true
+            });
 
-                                        webrtc.createRoom(val, function(err, name) {
-                                            var newUrl = location.pathname + '?' + name;
-                                            if (!err) {
-                                                history.replaceState({foo: 'bar'}, null, newUrl);
-                                                setRoom(name);
-                                            }
-                                        });
-                                        return false;
-                                    });
-                                }
+            // when it's ready, join if we got a room from the URL
+            webrtc.on('readyToCall', function() {
+                // you can name it anything
+                if (room)
+                    webrtc.joinRoom(room);
+            });
 
-                                $('#chatInput').bind('keyup', function(e) {
-                                    if (e.keyCode === 13) { // 13 is enter key
-                                        webrtc.sendChatMessage();
-                                    }
-                                });
+            // Since we use this twice we put it here
+
+            function setRoom(name) {
+
+                //$('form').remove();
+                $('#currentRoom').html('<span>' + name + '</span>&nbsp;<img src="images/icons/circlerightwhite32.png"/>');
+                $('#invite').find('.tileContent').append('<a href="' + location.href + '" target="">' + location.href + '</a>');
+                $('#invite').show();
+                $('body').addClass('active');
+
+                $('#chat').show();
+            }
+
+
+            if (room) {
+                setRoom(room);
+            } else {
+                $('form').submit(function() {
+                    var val = $('#sessionInput').val().toLowerCase().replace(/\s/g, '-').replace(/[^A-Za-z0-9_\-]/g, '');
+
+                    webrtc.createRoom(val, function(err, name) {
+                        var newUrl = location.pathname + '?' + name;
+                        if (!err) {
+                            history.replaceState({foo: 'bar'}, null, newUrl);
+                            setRoom(name);
+                        }
+                    });
+                    return false;
+                });
+            }
+
+            $('#chatInput').bind('keyup', function(e) {
+                if (e.keyCode === 13) { // 13 is enter key
+                    webrtc.sendChatMessage();
+                }
+            });
 
         </script>
     </body>
