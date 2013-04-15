@@ -87,3 +87,9 @@ function changeVideoSize() {
         videoSize = 'normal';
     }
 }
+
+$('#chatInput').bind('keyup', function(e) {
+    if (e.keyCode === 13) { // 13 is enter key
+        webrtc.sendChatMessage();
+    }
+});

@@ -23,7 +23,6 @@
 // GLOBALS
 var socketServerURL = 'http://' + location.host + ':8080';
 var conferencesExisting = false;
-//
 
 var logger = {
     log: function() {
@@ -347,6 +346,7 @@ function WebRTC(opts) {
     if (this.config.autoRequestMedia)
         this.startLocalVideo();
 
+
     connection.on('roomList', function(roomList, clientsPerRoom, totalClients) {
         debug('Generating roomlist.');
 
@@ -356,37 +356,37 @@ function WebRTC(opts) {
         var currentRoom = location.search && location.search.split('?')[1];
         var clients = 1;
 
-        for (room in roomList) {
-            if (room.length > 0) {
-                room = room.replace("/", "");
+        for (var THISroom in roomList) {
+            if (THISroom.length > 0) {
+                THISroom = THISroom.replace("/", "");
 
-                clients = clientsPerRoom[room];
+                clients = clientsPerRoom[THISroom];
 
-                debug("ROOM: '" + room + "' has '" + clients + "' CLIENTS");
+                debug("ROOM: '" + THISroom + "' has '" + clients + "' CLIENTS");
 
                 if (clients === undefined) {
                     clients = "?";
                 }
 
-                roomMoreReadable = room.replace("-", " ");
+                roomMoreReadable = THISroom.replace("-", " ");
 
-                if (currentRoom === room) {
-                    $('.conferenceList').append('<a class="active" href="?' + room + '">' + roomMoreReadable + ' <span>(' + clients + ')</span></a>');
+                if (currentRoom === THISroom) {
+                    $('.conferenceList').append('<a class="active" href="?' + THISroom + '">' + roomMoreReadable + ' <span>(' + clients + ')</span></a>');
                 } else {
-                    $('.conferenceList').append('<a href="?' + room + '">' + roomMoreReadable + ' <span>(' + clients + ')</span></a>');
+                    $('.conferenceList').append('<a href="?' + THISroom + '">' + roomMoreReadable + ' <span>(' + clients + ')</span></a>');
                 }
                 conferencesExisting = true;
             } else {
                 conferencesExisting = false;
             }
         }
-
+/*
         if (!conferencesExisting) {
             $('.conferenceList').html(' <span class="empty"> None. You may create on by yourself</span>');
         }
 
         $('.conferenceList').append("<div class='totalClients'>Total clients: " + totalClients + "</span>");
-
+*/
     });
 
 
@@ -641,7 +641,7 @@ WebRTC.prototype.sendChatMessage = function(msg) {
         var time = hours + ':' + minutes + ':' + seconds;
 
         msg = '<span class="time">' + time + '</span> <span class="chatUserName" style="color: ' + userColor + ';">' + userName + ': </span>' + msg;
-        var room = location.search && location.search.split('?')[1];
+        var room =  location.search.split('?')[1]; //location.search &&
         this.connection.emit('chatMessage', msg, room);
         $('#chatInput').val('');
     }

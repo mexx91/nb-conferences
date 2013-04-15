@@ -156,9 +156,9 @@
         <div id="scripts">
             <script type="text/javascript" src="js/jQuery.js"></script>
             <script type="text/javascript" src="js/jQueryUi.js"></script>
-            <!--socket is included via js in simplewebrtc.js -->
         </div>
 
+        <!-- load socket dymnamically -->
         <script> document.writeln('<script src="http://' + location.host + ':8080/socket.io/socket.io.js" type="text/javascript"></sc' + 'ript>');
         </script>
 
@@ -173,13 +173,12 @@
             // grab the room from the URL
             var room = location.search && location.search.split('?')[1];
 
-            if (room === '') {
+            if (room === "") {
                 $('#chat').hide();
             } else {
                 $('#chat').show();
                 $('#exitButton').show();
             }
-
 
             // create a webrtc connection
             var webrtc = new WebRTC({
@@ -230,12 +229,6 @@
                     return false;
                 });
             }
-
-            $('#chatInput').bind('keyup', function(e) {
-                if (e.keyCode === 13) { // 13 is enter key
-                    webrtc.sendChatMessage();
-                }
-            });
 
         </script>
     </body>
