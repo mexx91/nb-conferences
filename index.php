@@ -97,7 +97,7 @@
 
 
                 <div id="chat" class="isTile">
-                    <div class="tileHeader"><img src="images/icons/comment32white.png" /><p>Chat</p></div>
+                    <div class="tileHeader"><img src="images/icons/comment32white.png" /><p>Chat<span></span></p></div>
 
                     <div class="tileContent">
 

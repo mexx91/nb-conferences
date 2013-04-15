@@ -23,6 +23,7 @@
 // GLOBALS
 var socketServerURL = 'http://' + location.host + ':8080';
 var conferencesExisting = false;
+var unreadMsg = 1;
 
 var logger = {
     log: function() {
@@ -328,6 +329,12 @@ function WebRTC(opts) {
 
     // receive chat messages
     connection.on('chatMessage', function(msg) {
+
+        if ($('#chat').find('.tileContent').css('display') == "none") {
+            $('#chat').find('.tileHeader').find('span').html(' (' + unreadMsg + ')');
+            unreadMsg++;
+        }
+
         var textTemp = $('#chatTextarea').html();
         $('#chatTextarea').html(textTemp + '<br>' + msg);
 
@@ -641,7 +648,7 @@ WebRTC.prototype.sendChatMessage = function(msg) {
         var time = hours + ':' + minutes + ':' + seconds;
 
         msg = '<span class="time">' + time + '</span> <span class="chatUserName" style="color: ' + userColor + ';">' + userName + ': </span>' + msg;
-        var room =  location.search.split('?')[1]; //location.search &&
+        var room = location.search.split('?')[1]; //location.search &&
         this.connection.emit('chatMessage', msg, room);
         $('#chatInput').val('');
     }
@@ -650,3 +657,8 @@ WebRTC.prototype.sendChatMessage = function(msg) {
 
 // expose WebRTC
 window.WebRTC = WebRTC;
+
+$('#chat').find('.tileHeader').click(function() {
+    unreadMsg = 1;
+    $('#chat').find('.tileHeader').find('span').html('');
+});
