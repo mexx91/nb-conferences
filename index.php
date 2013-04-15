@@ -15,13 +15,14 @@
     <body>
         <div id="content">
 
-            <div id="infoBox" style="display:none;">
-                <p class="infoBoxText">info box (coming soon) ...</p>
-            </div>
-
             <div id="logo"><a href="./" id="netbiscuitsLogo"></a> <img src="images/icons/camera32white.png" /></div>
             <div class="clear"></div>
+
+            <div id="exitButton"><a href="./">exit conference</a></div>
+
             <div id="currentRoom"></div>
+
+            <div class="clear"></div>
 
             <audio id="knockSound" style="display: none;" src="sounds/knock.mp3"></audio>
             <audio id="beepSound" style="display: none;" src="sounds/beep-24.mp3"></audio>
@@ -113,12 +114,15 @@
                     <div class="tileContent">
 
                         <ul>
+                            <li>disabled "create conference" if you are in one</li>
+                            <li>room handling problem fixed</li>
+                            <li>exit button added</li>
                             <li>order of tiles changed</li>
                             <li>local video muted by default</li>
                             <li>tile dropdown event changed to click</li>
                             <li>invite link added</li>
                             <li>new style</li>
-                            <li>project uploaded</li>
+                            <li>...</li>
                         </ul>
 
                         <div class="tileFooter"></div>
@@ -136,7 +140,6 @@
                 </div>
 
             </div>
-            <div id="exitButton"><a href="./">exit conference</a></div>
 
             <div class="clear"></div>
             <video id="localVideo" poster="images/unlockPoster.png" muted="muted" autoplay ></video>
@@ -202,8 +205,11 @@
 
             function setRoom(name) {
 
-                //$('form').remove();
-                $('#currentRoom').html('<span>' + name + '</span>&nbsp;<img src="images/icons/circlerightwhite32.png"/>');
+                $('#titleWrap').remove();
+
+                currentRoomMoreReadableName = name.replace("-" ," ");
+
+                $('#currentRoom').html('<span>' + currentRoomMoreReadableName + '</span>&nbsp;<img src="images/icons/circlerightwhite32.png"/>');
                 $('#invite').find('.tileContent').append('<a href="' + location.href + '" target="">' + location.href + '</a>');
                 $('#invite').show();
                 $('body').addClass('active');

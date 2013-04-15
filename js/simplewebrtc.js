@@ -356,7 +356,7 @@ function WebRTC(opts) {
         var currentRoom = location.search && location.search.split('?')[1];
         var clients = 1;
 
-        for (var THISroom in roomList) {
+        for (THISroom in roomList) {
             if (THISroom.length > 0) {
                 THISroom = THISroom.replace("/", "");
 
@@ -380,13 +380,13 @@ function WebRTC(opts) {
                 conferencesExisting = false;
             }
         }
-/*
+
         if (!conferencesExisting) {
-            $('.conferenceList').html(' <span class="empty"> None. You may create on by yourself</span>');
+            $('.conferenceList').html(' <span class="empty"> None. You may create one by yourself</span>');
         }
 
         $('.conferenceList').append("<div class='totalClients'>Total clients: " + totalClients + "</span>");
-*/
+
     });
 
 
