@@ -167,7 +167,7 @@
 
         <script src = "js/crypt.js" ></script>
         <!--RTC connection-->
-        <script src="js/simplewebrtc.js"></script>
+        <script src="js/webrtc.js"></script>
         <!-- other JS-->
         <script src="js/functions.js"></script>
 
