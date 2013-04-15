@@ -6,7 +6,6 @@
         <title>Netbiscuits Conferences</title>
         <!--link href="css/jQueryUi.css" rel="stylesheet"/-->
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-        <link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet"/>
         <link href="css/style.css" rel="stylesheet"/>
 
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -16,6 +15,11 @@
         <div id="content">
 
             <div id="logo"><a href="./" id="netbiscuitsLogo"></a> <img src="images/icons/camera32white.png" /></div>
+
+            <div id="clocks">
+                <div class="clock"><span id="localClock"></span></div>
+            </div>
+
             <div class="clear"></div>
 
             <div id="exitButton"><a href="./">exit conference</a></div>
@@ -102,6 +106,7 @@
                         <input id="chatColorInput" type="hidden" />
                         <input type="text" id="chatInput" x-webkit-speech placeholder="Your Message" />
                         <img onclick="webrtc.sendChatMessage()" src="images/icons/check32white.png" />
+                        <a href="chatExport.php">export chat history</a>
 
                         <div class="tileFooter"></div>
                     </div> 
@@ -114,7 +119,7 @@
                     <div class="tileContent">
 
                         <ul>
-                            <li>disabled "create conference" if you are in one</li>
+                            <li>disabled "create conference" form if you are in one</li>
                             <li>room handling problem fixed</li>
                             <li>exit button added</li>
                             <li>order of tiles changed</li>
@@ -142,7 +147,7 @@
             </div>
 
             <div class="clear"></div>
-            <video id="localVideo" poster="images/unlockPoster.png" muted="muted" autoplay ></video>
+            <video id="localVideo" poster="images/unlockPoster.png" autoplay ></video>
 
             <div id="remotes">
 
@@ -158,17 +163,16 @@
         <!-- jQuery-->
         <div id="scripts">
             <script type="text/javascript" src="js/jQuery.js"></script>
-            <script type="text/javascript" src="js/jQueryUi.js"></script>
         </div>
 
         <!-- load socket dymnamically -->
         <script> document.writeln('<script src="http://' + location.host + ':8080/socket.io/socket.io.js" type="text/javascript"></sc' + 'ript>');
         </script>
 
-        <script src = "js/crypt.js" ></script>
         <!--RTC connection-->
         <script src="js/webrtc.js"></script>
         <!-- other JS-->
+        <script src="js/clock.js"></script>
         <script src="js/functions.js"></script>
 
         <script>
@@ -207,9 +211,9 @@
 
                 $('#titleWrap').remove();
 
-                currentRoomMoreReadableName = name.replace("-" ," ");
+                currentRoomMoreReadableName = name.replace("-", " ");
 
-                $('#currentRoom').html('<span>' + currentRoomMoreReadableName + '</span>&nbsp;<img src="images/icons/circlerightwhite32.png"/>');
+                $('#currentRoom').html('<span>' + currentRoomMoreReadableName + '</span>&nbsp;<img onClick="window.location.reload()" src="images/icons/exchangewhite32.png"/>');
                 $('#invite').find('.tileContent').append('<a href="' + location.href + '" target="">' + location.href + '</a>');
                 $('#invite').show();
                 $('body').addClass('active');

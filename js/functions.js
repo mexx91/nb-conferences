@@ -93,3 +93,5 @@ $('#chatInput').bind('keyup', function(e) {
         webrtc.sendChatMessage();
     }
 });
+
+$("#localClock").MyDigitClock({fontSize: 20});
