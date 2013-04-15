@@ -101,12 +101,16 @@
 
                     <div class="tileContent">
 
-                        <div id="chatTextarea" >CHAT:</div>
+                        <div id="chatTextarea">CHAT:</div>
                         <input type="text" id="chatNameInput" placeholder="Name" />
                         <input id="chatColorInput" type="hidden" />
                         <input type="text" id="chatInput" x-webkit-speech placeholder="Your Message" />
                         <img onclick="webrtc.sendChatMessage()" src="images/icons/check32white.png" />
-                        <a href="chatExport.php">export chat history</a>
+
+                        <form action="chatExport.php" method="post" target="_blank">
+                            <input type="hidden" id="chatHistory" name="chatHistory">
+                            <input id="chatExportButton" onclick="$('#chatHistory').val($('#chatTextarea').html())" type="submit" value="export chat history"></input>
+                        </form>
 
                         <div class="tileFooter"></div>
                     </div> 
@@ -119,6 +123,7 @@
                     <div class="tileContent">
 
                         <ul>
+                            <li>chat export function added</li>
                             <li>disabled "create conference" form if you are in one</li>
                             <li>room handling problem fixed</li>
                             <li>exit button added</li>

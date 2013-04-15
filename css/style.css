@@ -405,8 +405,19 @@ video {
 }
 
 #clocks .clock {
-   display: inline-block;
-   padding: 3px 100px 3px 20px;
-   color: red;
-   background-color: #FFF;
+    display: inline-block;
+    padding: 3px 100px 3px 20px;
+    color: red;
+    background-color: #FFF;
+}
+
+#chatExportButton {
+    background-color: transparent;
+    border: none;
+    color: #FFF;
+    background-image: url("../images/icons/boxdownloadwhite32.png");
+    background-repeat: no-repeat;
+    background-size: 15px;
+    padding-left: 20px;
+    font-size: 12px;
 }
