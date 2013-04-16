@@ -48,7 +48,7 @@
 
 
                 <div class="conferenceListWrap isTile">
-                    <div class="tileHeader"><img src="images/icons/userwhite32.png" /><p>Active conferences:</p></div>
+                    <div class="tileHeader"><img src="images/icons/userwhite32.png" /><p>Active conferences</p></div>
 
                     <div class="tileContent">
 
@@ -73,6 +73,7 @@
                             </select>
                         </form>
 
+                        <input type="checkbox" onchange="$('#localVideo').toggleClass('hidden');"/><label>Hide local video</label><br>
                         <input type="checkbox" onchange="mirrorLocalVideo()"/><label>Mirror local video</label><br>
                         <input type="checkbox" onchange="mirrorRemoteVideos()"/><label>Mirror remote videos</label>
 

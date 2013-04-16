@@ -15,7 +15,7 @@ body {
     background-color: #F03C19;
     font-family: 'Roboto', sans-serif;
     padding: 0;
-    margin: 0 3px 3px 3px;
+    margin: 0;
 }
 
 .clear {
@@ -50,6 +50,7 @@ input[type="checkbox"] {
 
 #logo {
     padding: 20px;
+    float: left;
 }
 
 #logo a{
@@ -77,14 +78,10 @@ form#createRoom {
     text-transform: capitalize;
 }
 
-#subTitle a{
-    color: #FFF;
-    text-decoration: none;
-    font-size: 13px;
-}
 
-#subTitle a:hover{
-    text-decoration: underline;
+
+#content {
+    margin: 0 0 3px 3px;
 }
 
 #createRoom button{
@@ -97,6 +94,7 @@ form#createRoom {
 }
 #createRoom input {
     width: 240px;
+    float: left;
 }
 
 
@@ -402,13 +400,18 @@ video {
 
 #clocks {
     float: right;
+    margin-top: 20px;
 }
 
 #clocks .clock {
     display: inline-block;
-    padding: 3px 100px 3px 20px;
+    padding: 3px 100px 3px 40px;
     color: red;
     background-color: #FFF;
+    background-image: url("../images/icons/clockred32.png");
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: 3px 3px;
 }
 
 #chatExportButton {
@@ -420,4 +423,10 @@ video {
     background-size: 15px;
     padding-left: 20px;
     font-size: 12px;
+    line-height: 7px;
+     border-bottom: 1px solid transparent;
+}
+
+#chatExportButton:hover {
+    border-bottom: 1px solid #FFF;
 }

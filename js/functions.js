@@ -59,11 +59,15 @@ function scrollChatWindow() {
 
 
 // expand tiles
+var zindex = 0;
+
 $(".tileHeader").click(function() {
+    zindex++;
     var backgroundColor = $(this).parent().css('backgroundColor');
     var display = $(this).parent().find('.tileContent').css('display');
     $(this).addClass('up');
-    $(this).parent().find('.tileContent').css({'backgroundColor': backgroundColor, 'z-index': 10});
+    $(this).parent().css({'z-index': zindex});
+    $(this).parent().find('.tileContent').css({'backgroundColor': backgroundColor, 'z-index': zindex});
     $(this).parent().find('.tileContent').slideDown();
 });
 

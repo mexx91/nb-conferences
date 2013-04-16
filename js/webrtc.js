@@ -638,6 +638,8 @@ WebRTC.prototype.sendChatMessage = function(msg) {
         $('#chatNameInput').addClass('locked');
 
         var msg = $('#chatInput').val();
+        msg = msg.replace("<", " < ");
+        msg = msg.replace(">", " > ");
         if (msg === '') {
             return;
         }
