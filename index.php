@@ -73,9 +73,9 @@
                             </select>
                         </form>
 
-                        <input type="checkbox" onchange="$('#localVideo').toggleClass('hidden');"/><label>Hide local video</label><br>
-                        <input type="checkbox" onchange="mirrorLocalVideo()"/><label>Mirror local video</label><br>
-                        <input type="checkbox" onchange="mirrorRemoteVideos()"/><label>Mirror remote videos</label>
+                        <input type="checkbox" onchange="$('#localVideo').toggleClass('hidden');"/><label>Hide local video from yourself</label><br>
+                        <input type="checkbox" onchange="mirrorLocalVideo()"/><label>Mirror local video layer</label><br>
+                        <input type="checkbox" onchange="mirrorRemoteVideos()"/><label>Mirror remote video layers</label>
 
                         <div class="tileFooter"></div>
                     </div>
@@ -124,12 +124,12 @@
                     <div class="tileContent">
 
                         <ul>
+                            <li>chat notification for unread messages</li>
                             <li>chat export function added</li>
                             <li>disabled "create conference" form if you are in one</li>
                             <li>room handling problem fixed</li>
                             <li>exit button added</li>
                             <li>order of tiles changed</li>
-                            <li>local video muted by default</li>
                             <li>tile dropdown event changed to click</li>
                             <li>invite link added</li>
                             <li>new style</li>
