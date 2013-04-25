@@ -21,7 +21,7 @@
  */
 
 // GLOBALS
-var socketServerURL = 'http://' + location.host + ':8080';
+var socketServerURL = '//' + location.host + ':8080';
 var conferencesExisting = false;
 var unreadMsg = 1;
 
@@ -282,7 +282,7 @@ function WebRTC(opts) {
     this.pcs = {};
 
     // our socket.io connection
-    connection = this.connection = io.connect(this.config.url);
+    connection = this.connection = io.connect(this.config.url, {secure: true, port: 8080}); //
 
     connection.on('connect', function() {
         self.emit('ready', connection.socket.sessionid);

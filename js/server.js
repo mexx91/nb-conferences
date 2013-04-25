@@ -22,6 +22,7 @@
 var yetify = require('yetify'),
         config = require('getconfig'),
         uuid = require('node-uuid'),
+        https = require('https'),
         io = require('socket.io').listen(config.server.port);
 
 io.sockets.on('connection', function(client) {

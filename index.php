@@ -5,7 +5,7 @@
 
         <title>Netbiscuits Conferences</title>
         <!--link href="css/jQueryUi.css" rel="stylesheet"/-->
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
         <link href="css/style.css" rel="stylesheet"/>
 
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
@@ -172,7 +172,7 @@
         </div>
 
         <!-- load socket dymnamically -->
-        <script> document.writeln('<script src="http://' + location.host + ':8080/socket.io/socket.io.js" type="text/javascript"></sc' + 'ript>');
+        <script> document.writeln('<script src="//' + location.host + ':8080/socket.io/socket.io.js" type="text/javascript"></sc' + 'ript>');
         </script>
 
         <!--RTC connection-->

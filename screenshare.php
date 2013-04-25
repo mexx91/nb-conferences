@@ -6,10 +6,11 @@ and open the template in the editor.
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="js/jQuery.js"></script>
         <title></title>
     </head>
     <body>
-        <video height="500px" autoplay id="localScreen"></video>
+        <video style="max-height: 400px;" autoplay id="localScreen"></video>
 
         <script>
             var video_constraints = {
@@ -22,7 +23,7 @@ and open the template in the editor.
                     mandatory: {chromeMediaSource: 'screen'}
                 }}
             , successCallback, errorCallback);
-            
+
             function successCallback(stream) {
                 localStream = stream;
                 try {
@@ -32,10 +33,11 @@ and open the template in the editor.
                     console.log("Error setting video src: ", e);
                 }
             }
-            
+
             function errorCallback(e) {
-                alert(e);
+                alert("Can't access media" + e);
             }
+
         </script>
 
     </body>
