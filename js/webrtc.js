@@ -282,7 +282,7 @@ function WebRTC(opts) {
     this.pcs = {};
 
     // our socket.io connection
-    connection = this.connection = io.connect(this.config.url, {secure: true, port: 8080}); //
+    connection = this.connection = io.connect(this.config.url, {secure: true, port: 8080}); //, {secure: true, port: 8080}
 
     connection.on('connect', function() {
         self.emit('ready', connection.socket.sessionid);

@@ -23,7 +23,27 @@ var yetify = require('yetify'),
         config = require('getconfig'),
         uuid = require('node-uuid'),
         https = require('https'),
-        io = require('socket.io').listen(config.server.port);
+        fs = require('fs');
+
+var options = {
+    key: fs.readFileSync('../cert/server.key'),
+    cert: fs.readFileSync('../cert/server.crt'),
+    ca: fs.readFileSync('../cert/server.crt')
+};
+
+var app = require('https').createServer(options, handler),
+        //io = require('socket.io').listen(config.server.port);
+        io = require('socket.io').listen(app);
+
+app.listen(8080);
+
+//for testing
+function handler(req, res) {
+    res.writeHead(200);
+    res.end("welcome to ebidnsave\n");
+}
+
+
 
 io.sockets.on('connection', function(client) {
 

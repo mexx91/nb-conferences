@@ -66,6 +66,8 @@
                     <div class="tileHeader"><img src="images/icons/gearwhite32.png" /><p>Settings</p></div>
                     <div class="tileContent">
 
+                        <input type="checkbox" onchange="toggleVideoSrc();"/><label>Share screen instead of video</label><br>
+
                         <form><label>Video size</label>
                             <select onChange="changeVideoSize()">
                                 <option selected>small</option>
@@ -153,13 +155,19 @@
             </div>
 
             <div class="clear"></div>
+
             <video id="localVideo" poster="images/unlockPoster.png" autoplay ></video>
+
 
             <div id="remotes">
 
             </div>
 
             <div class="clear"></div>
+
+
+            <video style="max-height: 400px;" autoplay id="localScreen"></video>
+
 
             <div id="debug">
                 <b>DEBUG:</b><br> 
@@ -179,6 +187,7 @@
         <script src="js/webrtc.js"></script>
         <!-- other JS-->
         <script src="js/clock.js"></script>
+        <script src="js/screensharing.js"></script>
         <script src="js/functions.js"></script>
 
         <script>
