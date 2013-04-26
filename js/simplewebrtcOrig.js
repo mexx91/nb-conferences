@@ -1,46 +1,18 @@
-/*Written by Henrik Joreteg. Extended by Maximilian Groß.
- Copyright © 2013 by &yet, LLC.
- Released under the terms of the MIT License:
- 
- Permission is hereby granted, free of charge, to any person obtaining a copy of
- this software and associated documentation files (the "Software"), to deal in
- the Software without restriction, including without limitation the rights to
- use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- the Software, and to permit persons to whom the Software is furnished to do so,
- subject to the following conditions:
- 
- The above copyright notice and this permission notice shall be included in all
- copies or substantial portions of the Software.
- 
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
- OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-// GLOBALS
-var socketServerURL = '//' + location.host + ':8080';
-var conferencesExisting = false;
-var unreadMsg = 1;
+;(function () {
 
 var logger = {
-    log: function() {
-    },
-    warn: function() {
-    },
-    error: function() {
-    }
+    log: function (){},
+    warn: function (){},
+    error: function (){}
 };
 
 // normalize environment
 var RTCPeerConnection = null,
-        getUserMedia = null,
-        attachMediaStream = null,
-        reattachMediaStream = null,
-        browser = null,
-        webRTCSupport = true;
+    getUserMedia = null,
+    attachMediaStream = null,
+    reattachMediaStream = null,
+    browser = null,
+    webRTCSupport = true;
 
 if (navigator.mozGetUserMedia) {
     logger.log("This appears to be Firefox");
@@ -91,14 +63,8 @@ if (navigator.mozGetUserMedia) {
 
     // Attach a media stream to an element.
     attachMediaStream = function(element, stream) {
-        debug('Attaching media stream...');
         element.autoplay = true;
-        element.controls = true;
-        element.audio = true;
-        element.video = true;
-        var thisSrc = webkitURL.createObjectURL(stream);
-        element.src = thisSrc;
-        debug(thisSrc);
+        element.src = webkitURL.createObjectURL(stream);
     };
 
     reattachMediaStream = function(to, from) {
@@ -127,7 +93,6 @@ if (navigator.mozGetUserMedia) {
     }
 } else {
     webRTCSupport = false;
-    alert("Browser does not appear to be WebRTC-capable. Please try the newest Chrome version.");
     throw new Error("Browser does not appear to be WebRTC-capable");
 }
 
@@ -138,10 +103,10 @@ function WildEmitter() {
 }
 
 // Listen on the given `event` with `fn`. Store a group name if present.
-WildEmitter.prototype.on = function(event, groupName, fn) {
+WildEmitter.prototype.on = function (event, groupName, fn) {
     var hasGroup = (arguments.length === 3),
-            group = hasGroup ? arguments[1] : undefined,
-            func = hasGroup ? arguments[2] : arguments[1];
+        group = hasGroup ? arguments[1] : undefined,
+        func = hasGroup ? arguments[2] : arguments[1];
     func._groupName = group;
     (this.callbacks[event] = this.callbacks[event] || []).push(func);
     return this;
@@ -149,7 +114,7 @@ WildEmitter.prototype.on = function(event, groupName, fn) {
 
 // Adds an `event` listener that will be invoked a single
 // time then automatically removed.
-WildEmitter.prototype.once = function(event, fn) {
+WildEmitter.prototype.once = function (event, fn) {
     var self = this;
     function on() {
         self.off(event, on);
@@ -160,7 +125,7 @@ WildEmitter.prototype.once = function(event, fn) {
 };
 
 // Unbinds an entire group
-WildEmitter.prototype.releaseGroup = function(groupName) {
+WildEmitter.prototype.releaseGroup = function (groupName) {
     var item, i, len, handlers;
     for (item in this.callbacks) {
         handlers = this.callbacks[item];
@@ -177,12 +142,11 @@ WildEmitter.prototype.releaseGroup = function(groupName) {
 
 // Remove the given callback for `event` or all
 // registered callbacks.
-WildEmitter.prototype.off = function(event, fn) {
+WildEmitter.prototype.off = function (event, fn) {
     var callbacks = this.callbacks[event],
-            i;
+        i;
 
-    if (!callbacks)
-        return this;
+    if (!callbacks) return this;
 
     // remove all handlers
     if (arguments.length === 1) {
@@ -198,13 +162,13 @@ WildEmitter.prototype.off = function(event, fn) {
 
 // Emit `event` with the given args.
 // also calls any `*` handlers
-WildEmitter.prototype.emit = function(event) {
+WildEmitter.prototype.emit = function (event) {
     var args = [].slice.call(arguments, 1),
-            callbacks = this.callbacks[event],
-            specialCallbacks = this.getWildcardCallbacks(event),
-            i,
-            len,
-            item;
+        callbacks = this.callbacks[event],
+        specialCallbacks = this.getWildcardCallbacks(event),
+        i,
+        len,
+        item;
 
     if (callbacks) {
         for (i = 0, len = callbacks.length; i < len; ++i) {
@@ -222,10 +186,10 @@ WildEmitter.prototype.emit = function(event) {
 };
 
 // Helper for for finding special wildcard event handlers that match the event
-WildEmitter.prototype.getWildcardCallbacks = function(eventName) {
+WildEmitter.prototype.getWildcardCallbacks = function (eventName) {
     var item,
-            split,
-            result = [];
+        split,
+        result = [];
 
     for (item in this.callbacks) {
         split = item.split('*');
@@ -236,25 +200,33 @@ WildEmitter.prototype.getWildcardCallbacks = function(eventName) {
     return result;
 };
 
+
 function WebRTC(opts) {
     var self = this,
-            options = opts || {},
-            config = this.config = {
-        url: socketServerURL,
-        log: false,
-        localVideoEl: '',
-        remoteVideosEl: '',
-        autoRequestMedia: false,
-        // makes the entire PC config overridable
-        peerConnectionConfig: {
-            iceServers: browser === 'firefox' ? [{"url": "stun:124.124.124.2"}] : [{"url": "stun:stun.l.google.com:19302"}]
+        options = opts || {},
+        config = this.config = {
+            url: 'http://signaling.simplewebrtc.com:8888',
+            log: false,
+            localVideoEl: '',
+            remoteVideosEl: '',
+            autoRequestMedia: false,
+            // makes the entire PC config overridable
+            peerConnectionConfig: {
+                iceServers: browser == 'firefox' ? [{"url":"stun:124.124.124.2"}] : [{"url": "stun:stun.l.google.com:19302"}]
+            },
+            peerConnectionContraints: {
+                optional: [{"DtlsSrtpKeyAgreement": true}]
+            },
+            media: {
+                audio:true,
+                video: {
+                    mandatory: {},
+                    optional: []
+                }
+            }
         },
-        peerConnectionContraints: {
-            optional: [{"DtlsSrtpKeyAgreement": true}]
-        }
-    },
-    item,
-            connection;
+        item,
+        connection;
 
     // check for support
     if (!webRTCSupport) {
@@ -267,23 +239,21 @@ function WebRTC(opts) {
     }
 
     // log if configured to
-    if (this.config.log)
-        logger = console;
+    if (this.config.log) logger = console;
 
     // where we'll store our peer connections
     this.pcs = {};
 
     // our socket.io connection
-    connection = this.connection = io.connect(this.config.url, {secure: true, port: 8080}); //, {secure: true, port: 8080}
+    connection = this.connection = io.connect(this.config.url);
 
-    connection.on('connect', function() {
+    connection.on('connect', function () {
         self.emit('ready', connection.socket.sessionid);
         self.sessionReady = true;
         self.testReadiness();
-
     });
 
-    connection.on('message', function(message) {
+    connection.on('message', function (message) {
         var existing = self.pcs[message.from];
         if (existing) {
             existing.handleMessage(message);
@@ -298,97 +268,26 @@ function WebRTC(opts) {
         }
     });
 
-    connection.on('joined', function(room) {
+    connection.on('joined', function (room) {
         logger.log('got a joined', room);
         if (!self.pcs[room.id]) {
             self.startVideoCall(room.id);
         }
-
-        var textTemp = $('#chatTextarea').html();
-        $('#chatTextarea').html(textTemp + '<br>' + '<span class="systemMsg">USER JOINED</span>');
-        scrollChatWindow();
-
     });
-    connection.on('left', function(room) {
+    connection.on('left', function (room) {
         var conv = self.pcs[room.id];
-        if (conv)
-            conv.handleStreamRemoved();
-
-        var textTemp = $('#chatTextarea').html();
-        $('#chatTextarea').html(textTemp + '<br>' + '<span class="systemMsg">USER LEFT</span>');
-        scrollChatWindow();
-    });
-
-    // receive chat messages
-    connection.on('chatMessage', function(msg) {
-
-        if ($('#chat').find('.tileContent').css('display') == "none") {
-            $('#chat').find('.tileHeader').find('span').html(' (' + unreadMsg + ')');
-            unreadMsg++;
-        }
-
-        var textTemp = $('#chatTextarea').html();
-        $('#chatTextarea').html(textTemp + '<br>' + msg);
-
-        scrollChatWindow();
-        beepSound.play();
+        if (conv) conv.handleStreamRemoved();
     });
 
     WildEmitter.call(this);
 
     // log events
-    this.on('*', function(event, val1, val2) {
+    this.on('*', function (event, val1, val2) {
         logger.log('event:', event, val1, val2);
     });
 
     // auto request if configured
-    if (this.config.autoRequestMedia)
-        this.startLocalVideo();
-
-
-    connection.on('roomList', function(roomList, clientsPerRoom, totalClients) {
-        debug('Generating roomlist.');
-
-        //Clear old room list
-        $('.conferenceList').html('');
-
-        var currentRoom = location.search && location.search.split('?')[1];
-        var clients = 1;
-
-        for (THISroom in roomList) {
-            if (THISroom.length > 0) {
-                THISroom = THISroom.replace("/", "");
-
-                clients = clientsPerRoom[THISroom];
-
-                debug("ROOM: '" + THISroom + "' has '" + clients + "' CLIENTS");
-
-                if (clients === undefined) {
-                    clients = "?";
-                }
-
-                roomMoreReadable = THISroom.replace("-", " ");
-
-                if (currentRoom === THISroom) {
-                    $('.conferenceList').append('<a class="active" href="?' + THISroom + '">' + roomMoreReadable + ' <span>(' + clients + ')</span></a>');
-                } else {
-                    $('.conferenceList').append('<a href="?' + THISroom + '">' + roomMoreReadable + ' <span>(' + clients + ')</span></a>');
-                }
-                conferencesExisting = true;
-            } else {
-                conferencesExisting = false;
-            }
-        }
-
-        if (!conferencesExisting) {
-            $('.conferenceList').html(' <span class="empty"> None. You may create one by yourself</span>');
-        }
-
-        $('.conferenceList').append("<div class='totalClients'>Total clients: " + totalClients + "</span>");
-
-    });
-
-
+    if (this.config.autoRequestMedia) this.startLocalVideo();
 }
 
 WebRTC.prototype = Object.create(WildEmitter.prototype, {
@@ -397,8 +296,8 @@ WebRTC.prototype = Object.create(WildEmitter.prototype, {
     }
 });
 
-WebRTC.prototype.getEl = function(idOrEl) {
-    if (typeof idOrEl === 'string') {
+WebRTC.prototype.getEl = function (idOrEl) {
+    if (typeof idOrEl == 'string') {
         return document.getElementById(idOrEl);
     } else {
         return idOrEl;
@@ -408,7 +307,7 @@ WebRTC.prototype.getEl = function(idOrEl) {
 // this accepts either element ID or element
 // and either the video tag itself or a container
 // that will be used to put the video tag into.
-WebRTC.prototype.getLocalVideoContainer = function() {
+WebRTC.prototype.getLocalVideoContainer = function () {
     var el = this.getEl(this.config.localVideoEl);
     if (el && el.tagName === 'VIDEO') {
         return el;
@@ -419,12 +318,11 @@ WebRTC.prototype.getLocalVideoContainer = function() {
     }
 };
 
-WebRTC.prototype.getRemoteVideoContainer = function() {
+WebRTC.prototype.getRemoteVideoContainer = function () {
     return this.getEl(this.config.remoteVideosEl);
 };
 
-WebRTC.prototype.startVideoCall = function(id) {
-    debug('Starting video call...');
+WebRTC.prototype.startVideoCall = function (id) {
     this.pcs[id] = new Conversation({
         id: id,
         parent: this,
@@ -433,7 +331,7 @@ WebRTC.prototype.startVideoCall = function(id) {
     this.pcs[id].start();
 };
 
-WebRTC.prototype.createRoom = function(name, cb) {
+WebRTC.prototype.createRoom = function (name, cb) {
     if (arguments.length === 2) {
         this.connection.emit('create', name, cb);
     } else {
@@ -441,12 +339,12 @@ WebRTC.prototype.createRoom = function(name, cb) {
     }
 };
 
-WebRTC.prototype.joinRoom = function(name) {
+WebRTC.prototype.joinRoom = function (name) {
     this.connection.emit('join', name);
     this.roomName = name;
 };
 
-WebRTC.prototype.leaveRoom = function() {
+WebRTC.prototype.leaveRoom = function () {
     if (this.roomName) {
         this.connection.emit('leave', this.roomName);
         for (var pc in this.pcs) {
@@ -455,34 +353,31 @@ WebRTC.prototype.leaveRoom = function() {
     }
 };
 
-WebRTC.prototype.testReadiness = function() {
+WebRTC.prototype.testReadiness = function () {
     var self = this;
     if (this.localStream && this.sessionReady) {
         // This timeout is a workaround for the strange no-audio bug
         // as described here: https://code.google.com/p/webrtc/issues/detail?id=1525
         // remove timeout when this is fixed.
-        setTimeout(function() {
+        setTimeout(function () {
             self.emit('readyToCall', self.connection.socket.sessionid);
         }, 1000);
     }
 };
 
-WebRTC.prototype.startLocalVideo = function(element) {
-    debug('Starting local video...');
+WebRTC.prototype.startLocalVideo = function (element) {
     var self = this;
-    getUserMedia(this.config.media, function(stream) {
+    getUserMedia(this.config.media, function (stream) {
         attachMediaStream(element || self.getLocalVideoContainer(), stream);
         self.localStream = stream;
         self.testReadiness();
-        debug('Started.');
-    }, function() {
-        debug('Failed to get access to local media.');
+    }, function () {
         throw new Error('Failed to get access to local media.');
     });
 };
 
 
-WebRTC.prototype.send = function(to, type, payload) {
+WebRTC.prototype.send = function (to, type, payload) {
     this.connection.emit('message', {
         to: to,
         type: type,
@@ -506,14 +401,14 @@ function Conversation(options) {
     // for re-use
     this.mediaConstraints = {
         'mandatory': {
-            'OfferToReceiveAudio': true,
-            'OfferToReceiveVideo': true
+            'OfferToReceiveAudio':true,
+            'OfferToReceiveVideo':true
         }
     };
     WildEmitter.call(this);
 
     // proxy events to parent
-    this.on('*', function(name, value) {
+    this.on('*', function (name, value) {
         self.parent.emit(name, value, self);
     });
 }
@@ -524,7 +419,7 @@ Conversation.prototype = Object.create(WildEmitter.prototype, {
     }
 });
 
-Conversation.prototype.handleMessage = function(message) {
+Conversation.prototype.handleMessage = function (message) {
     if (message.type === 'offer') {
         logger.log('setting remote description');
         this.pc.setRemoteDescription(new RTCSessionDescription(message.payload));
@@ -538,17 +433,15 @@ Conversation.prototype.handleMessage = function(message) {
             candidate: message.payload.candidate
         });
         this.pc.addIceCandidate(candidate);
-        debug("New IceCandidate");
     }
 };
 
-Conversation.prototype.send = function(type, payload) {
+Conversation.prototype.send = function (type, payload) {
     this.parent.send(this.id, type, payload);
 };
 
-Conversation.prototype.onIceCandidate = function(event) {
-    if (this.closed)
-        return;
+Conversation.prototype.onIceCandidate = function (event) {
+    if (this.closed) return;
     if (event.candidate) {
         this.send('candidate', {
             label: event.candidate.sdpMLineIndex,
@@ -556,13 +449,13 @@ Conversation.prototype.onIceCandidate = function(event) {
             candidate: event.candidate.candidate
         });
     } else {
-        logger.log("End of candidates.");
+      logger.log("End of candidates.");
     }
 };
 
-Conversation.prototype.start = function() {
+Conversation.prototype.start = function () {
     var self = this;
-    this.pc.createOffer(function(sessionDescription) {
+    this.pc.createOffer(function (sessionDescription) {
         logger.log('setting local description');
         self.pc.setLocalDescription(sessionDescription);
         logger.log('sending offer', sessionDescription);
@@ -570,15 +463,15 @@ Conversation.prototype.start = function() {
     }, null, this.mediaConstraints);
 };
 
-Conversation.prototype.end = function() {
+Conversation.prototype.end = function () {
     this.pc.close();
     this.handleStreamRemoved();
 };
 
-Conversation.prototype.answer = function() {
+Conversation.prototype.answer = function () {
     var self = this;
     logger.log('answer called');
-    this.pc.createAnswer(function(sessionDescription) {
+    this.pc.createAnswer(function (sessionDescription) {
         logger.log('setting local description');
         self.pc.setLocalDescription(sessionDescription);
         logger.log('sending answer', sessionDescription);
@@ -586,73 +479,26 @@ Conversation.prototype.answer = function() {
     }, null, this.mediaConstraints);
 };
 
-Conversation.prototype.handleRemoteStreamAdded = function(event) {
+Conversation.prototype.handleRemoteStreamAdded = function (event) {
     var stream = this.stream = event.stream,
-            el = document.createElement('video'),
-            container = this.parent.getRemoteVideoContainer();
+        el = document.createElement('video'),
+        container = this.parent.getRemoteVideoContainer();
     el.id = this.id;
     attachMediaStream(el, stream);
-    if (container)
-        container.appendChild(el);
+    if (container) container.appendChild(el);
     this.emit('videoAdded', el);
-
-    knockSound.play();
 };
 
-Conversation.prototype.handleStreamRemoved = function() {
+Conversation.prototype.handleStreamRemoved = function () {
     var video = document.getElementById(this.id),
-            container = this.parent.getRemoteVideoContainer();
-    if (video && container)
-        container.removeChild(video);
+        container = this.parent.getRemoteVideoContainer();
+    if (video && container) container.removeChild(video);
     this.emit('videoRemoved', video);
     delete this.parent.pcs[this.id];
     this.closed = true;
 };
 
-// Also added by Maximilian Groß:
-WebRTC.prototype.sendChatMessage = function(msg) {
-    var userName = $('#chatNameInput').val();
-    var userColor = $('#chatColorInput').val();
-
-    if (userColor === '') {
-        userColor = get_random_color();
-        $('#chatColorInput').val(userColor);
-    }
-
-    $('#chatNameInput').css('color', userColor);
-
-    if (userName === '') {
-        alert("Please fill in a username first!");
-        return;
-    } else {
-        // Denie to change the username during the session
-        $('#chatNameInput').attr('readonly', 'readonly');
-        $('#chatNameInput').addClass('locked');
-
-        var msg = $('#chatInput').val();
-        msg = msg.replace("<", " < ");
-        msg = msg.replace(">", " > ");
-        if (msg === '') {
-            return;
-        }
-        var date = new Date();
-        var seconds = date.getSeconds();
-        var minutes = date.getMinutes();
-        var hours = date.getHours();
-        var time = hours + ':' + minutes + ':' + seconds;
-
-        msg = '<span class="time">' + time + '</span> <span class="chatUserName" style="color: ' + userColor + ';">' + userName + ': </span>' + msg;
-        var room = location.search.split('?')[1]; //location.search &&
-        this.connection.emit('chatMessage', msg, room);
-        $('#chatInput').val('');
-    }
-
-};
-
 // expose WebRTC
 window.WebRTC = WebRTC;
 
-$('#chat').find('.tileHeader').click(function() {
-    unreadMsg = 1;
-    $('#chat').find('.tileHeader').find('span').html('');
-});
+}());

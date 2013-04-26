@@ -23,8 +23,9 @@ function toggleVideoSrc() {
         try {
 
             var src = window.URL.createObjectURL(stream);
-            $('#localVideo').attr('src', src);
-            $('#localVideo').play();
+            $('#localScreen').attr('src', src);
+            $('#localScreen').play();
+
         } catch (e) {
             console.log("Error setting video src: ", e);
         }
@@ -33,5 +34,6 @@ function toggleVideoSrc() {
     function errorCallback(e) {
         alert("Can't access media" + e);
     }
+   
 
 }

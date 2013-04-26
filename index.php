@@ -39,7 +39,7 @@
                         <div id="subTitle"></div>
                         <form id="createRoom" name="createRoom">
                             <input placeholder="Conference name" id="sessionInput" x-webkit-speech/>
-                            <img onclick="$('#createRoom').submit()" src="images/icons/check32white.png" />
+                            <img onclick="$('#createRoom').submit();" src="images/icons/check32white.png" />
                         </form>
 
                         <div class="tileFooter"></div>
@@ -66,7 +66,17 @@
                     <div class="tileHeader"><img src="images/icons/gearwhite32.png" /><p>Settings</p></div>
                     <div class="tileContent">
 
-                        <input type="checkbox" onchange="toggleVideoSrc();"/><label>Share screen instead of video</label><br>
+                        <!--button onclick="window.open(location.href + '&screen', '_blank')">Share your screen</button><br-->
+
+                        <button onclick="adScreenSharing()">Share your screen</button><br>
+
+                        <script>
+                                function adScreenSharing() {
+                                    var src = location.href + '&screen';
+                                    $('body').append("<iframe style='display: none;' src='" + src + "'></iframe>");
+                                }
+
+                        </script>
 
                         <form><label>Video size</label>
                             <select onChange="changeVideoSize()">
@@ -166,9 +176,6 @@
             <div class="clear"></div>
 
 
-            <video style="max-height: 400px;" autoplay id="localScreen"></video>
-
-
             <div id="debug">
                 <b>DEBUG:</b><br> 
             </div>
@@ -185,21 +192,33 @@
 
         <!--RTC connection-->
         <script src="js/webrtc.js"></script>
+        <!--script src="js/simplewebrtcOrig.js"></script-->
         <!-- other JS-->
         <script src="js/clock.js"></script>
-        <script src="js/screensharing.js"></script>
         <script src="js/functions.js"></script>
 
         <script>
 
             // grab the room from the URL
-            var room = location.search && location.search.split('?')[1];
+            var urlStr = location.search && location.search.split('?')[1];
+            var room = urlStr.split('&')[0];
+            var media = urlStr.split('&')[1];
+
+            console.log(room + ' ' + media);
 
             if (room === "") {
                 $('#chat').hide();
             } else {
                 $('#chat').show();
                 $('#exitButton').show();
+            }
+
+            if (media === 'screen') {
+                var hasItAudio = false;
+                var vidMan = {chromeMediaSource: 'screen'};
+            } else {
+                var hasItAudio = true;
+                var vidMan = {};
             }
 
             // create a webrtc connection
@@ -210,8 +229,18 @@
                 remoteVideosEl: 'remotes',
                 // immediately ask for camera access
                 autoRequestMedia: true,
-                log: true
+                audio: true,
+                log: true,
+                media: {
+                    audio: hasItAudio,
+                    video: {
+                        mandatory: vidMan,
+                        optional: []
+                    }
+                }
             });
+
+
 
             // when it's ready, join if we got a room from the URL
             webrtc.on('readyToCall', function() {

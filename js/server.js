@@ -31,17 +31,11 @@ var options = {
     ca: fs.readFileSync('../cert/server.crt')
 };
 
-var app = require('https').createServer(options, handler),
+var app = require('https').createServer(options),
         //io = require('socket.io').listen(config.server.port);
         io = require('socket.io').listen(app);
 
 app.listen(8080);
-
-//for testing
-function handler(req, res) {
-    res.writeHead(200);
-    res.end("welcome to ebidnsave\n");
-}
 
 
 
