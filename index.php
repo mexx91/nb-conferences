@@ -257,7 +257,7 @@
 
                 currentRoomMoreReadableName = name.replace("-", " ");
 
-                $('#currentRoom').html('<span>' + currentRoomMoreReadableName + '</span>&nbsp;<img onClick="window.location.reload()" src="images/icons/exchangewhite32.png"/>');
+                $('#currentRoom').html('<span>' + currentRoomMoreReadableName + '</span>&nbsp;<img style="cursor: hand;" onClick="window.location.reload()" src="images/icons/exchangewhite32.png"/>');
                 $('#invite').find('.tileContent').append('<a href="' + location.href + '" target="">' + location.href + '</a>');
                 $('#invite').show();
                 $('body').addClass('active');
